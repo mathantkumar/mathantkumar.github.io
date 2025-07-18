@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import profileImg from './imgs/profile.jpg';
 import laptopicon from './imgs/Laptop.svg';
+import ScrollToTop from './ScrollToTop';
 
 const navItems = [
   { name: 'Home', to: '/' },
@@ -105,14 +106,12 @@ function TimelineEntry({ item, idx }: { item: TimelineItem; idx: number }) {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       {/* Floating NavBar always visible */}
       <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-full border border-gray-200 shadow-lg backdrop-blur-lg
         bg-white/90 px-4 py-2 flex items-center gap-3 min-h-[40px] w-auto max-w-full text-base">
         {/* Icon + Brand */}
-        <div className="flex items-center gap-2 font-bold text-base">
-          <img src={laptopicon} alt="Laptop Icon" className="w-6 h-6 object-contain" />
-          Mathan
-        </div>
+        <div className="font-bold text-base">Mathan</div>
         <ul className="flex gap-2 md:gap-4 text-sm md:text-base font-medium">
           {navItems.map(item => (
             item.to ? (
@@ -149,10 +148,11 @@ function ProfileCard() {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-      className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center h-full"
+      whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
+      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-col items-center text-center h-full border border-white/30"
     >
       <div className="font-bold text-lg mb-2 text-gray-800">Learn more about me</div>
-      <div className="text-indigo-600 text-sm mb-1 text-gray-300">Good morning!</div>
+      <div className="text-sm mb-1 bg-gradient-to-r from-blue-500 to-orange-400 text-transparent bg-clip-text font-semibold">Good morning!</div>
       <div className="text-base font-medium mb-3 text-gray-700">I'm Mathan, an experienced fullstack developer.</div>
       <img src={profileImg} alt="Mathan headshot" className="w-20 h-20 rounded-full border-2 border-gray-800 shadow mb-2 object-cover" />
     </motion.div>
@@ -186,7 +186,8 @@ function ToolboxCard() {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-      className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center h-full"
+      whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
+      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-col items-center text-center h-full border border-white/30"
     >
       <div className="font-bold text-lg mb-2 text-gray-800">Toolbox</div>
       <div className="text-base mb-4 text-gray-600">Check out my favorite tech stacks and tools.</div>
@@ -226,7 +227,8 @@ function ProjectsCard() {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-      className="bg-white rounded-2xl shadow-lg p-6 flex flex-col text-left h-full gap-4"
+      whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
+      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-col text-left h-full gap-4 border border-white/30"
     >
       <div className="font-bold text-lg mb-1 text-gray-800">Projects</div>
       <div className="flex flex-row items-start gap-4">
@@ -256,7 +258,8 @@ function BookingCard() {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
-      className="bg-white rounded-2xl shadow-lg p-6 flex flex-row items-center text-left h-full gap-4"
+      whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
+      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-row items-center text-left h-full gap-4 border border-white/30"
     >
       <div className="flex-shrink-0 flex flex-col items-center">
         <svg width="36" height="36" fill="none" viewBox="0 0 36 36"><rect width="36" height="36" rx="8" fill="#E0E7FF"/><path d="M12 16h12M12 20h8" stroke="#3730A3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><rect x="8" y="8" width="20" height="20" rx="4" stroke="#3730A3" strokeWidth="2"/></svg>
@@ -279,6 +282,12 @@ function Home() {
       <div className="min-h-screen flex flex-col bg-white text-gray-900">
         {/* HERO */}
         <header id="home" className="relative flex flex-col md:flex-row items-center justify-center text-center py-10 px-4 gap-8">
+          {/* Decorative computer-related emojis (near border) */}
+          <span className="hidden md:block absolute left-2 top-2 text-4xl opacity-30 select-none pointer-events-none">💻</span>
+          <span className="hidden md:block absolute right-2 top-4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🖥️</span>
+          <span className="hidden md:block absolute left-12 bottom-4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🖱️</span>
+          <span className="hidden md:block absolute right-12 bottom-2 text-4xl opacity-30 select-none pointer-events-none">⌨️</span>
+          <span className="hidden md:block absolute left-[60%] top-1/4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🧑‍💻</span>
           {/* Hero content (image + text) */}
           <div className="flex flex-col items-center justify-center text-center md:text-left">
             <motion.div
@@ -310,7 +319,7 @@ function Home() {
               Welcome to my corner of the internet!
             </motion.p>
             <motion.p
-              className="max-w-xl text-base md:text-lg text-gray-600 mb-8"
+              className="max-w-xl text-base md:text-lg text-gray-600 mb-8 text-center"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 1.0, ease: 'easeOut' }}
@@ -366,6 +375,15 @@ function Home() {
 
 // --- About Page ---
 function About() {
+  // Animation refs for sections
+  const originsRef = useRef(null);
+  const originsInView = useInView(originsRef, { once: true, margin: '-80px' });
+  const webRef = useRef(null);
+  const webInView = useInView(webRef, { once: true, margin: '-80px' });
+  const lifeRef = useRef(null);
+  const lifeInView = useInView(lifeRef, { once: true, margin: '-80px' });
+  const newsletterRef = useRef(null);
+  const newsletterInView = useInView(newsletterRef, { once: true, margin: '-80px' });
   return (
     <div className="max-w-7xl mx-auto px-8 md:px-24 py-12">
       {/* Hero Section: Greeting, Heading, and Overlapping Images */}
@@ -374,17 +392,39 @@ function About() {
           <div className="space-y-8 relative w-full before:absolute before:top-0 before:h-px before:bg-gray-200 before:left-0 before:right-0 after:left-0 after:right-0 after:absolute after:bottom-0 after:h-px after:bg-gray-200">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-24">
               {/* Left: Greeting and Heading */}
-              <div className="flex-1 basis-1/2 order-2 mx-auto lg:order-1 lg:m-0 lg:pr-20">
-                <div className="text-center text-sm font-medium text-indigo-600 lg:text-left mb-2 mt-8 text-gray-300">
+              <motion.div
+                className="flex-1 basis-1/2 order-2 mx-auto lg:order-1 lg:m-0 lg:pr-20"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+              >
+                <div className="text-center text-sm font-semibold bg-gradient-to-r from-blue-500 to-orange-400 text-transparent bg-clip-text lg:text-left mb-2 mt-8">
                   <span>Good morning!</span>
                 </div>
-                <h1 className="mx-auto max-w-2xl text-balance text-center text-2xl font-medium leading-tight tracking-tighter text-gray-900 md:text-3xl lg:text-left lg:text-4xl lg:leading-[48px] whitespace-nowrap">
+                <motion.h1
+                  className="mx-auto max-w-2xl text-balance text-center text-2xl font-medium leading-tight tracking-tighter text-gray-900 md:text-3xl lg:text-left lg:text-4xl lg:leading-[48px] whitespace-nowrap"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+                >
                   I'm Mathan, a creative fullstack engineer.
-                </h1>
-                <p className="mt-4 mb-8 text-base md:text-lg text-gray-700 text-center lg:text-left">Here's a quick intro about me and what I love to do</p>
-              </div>
+                </motion.h1>
+                <motion.p
+                  className="mt-4 mb-8 text-base md:text-lg text-gray-700 text-center lg:text-left"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+                >
+                  Here's a quick intro about me and what I love to do
+                </motion.p>
+              </motion.div>
               {/* Right: Overlapping Image Grid */}
-              <div className="flex-1 basis-1/2 order-1 my-8 flex-shrink-0 lg:order-2 lg:my-0 flex justify-center">
+              <motion.div
+                className="flex-1 basis-1/2 order-1 my-8 flex-shrink-0 lg:order-2 lg:my-0 flex justify-center"
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
+              >
                 <div className="relative w-full max-w-[600px]">
                   <div className="relative grid grid-cols-3 gap-8">
                     <div className="relative z-20 -translate-y-4">
@@ -404,7 +444,7 @@ function About() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -413,37 +453,82 @@ function About() {
       <div className="mt-24" />
 
       {/* Programming Origins */}
-      <section className="mb-16">
+      <motion.section
+        ref={originsRef}
+        className="mb-16"
+        initial={{ opacity: 0, y: 40 }}
+        animate={originsInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+      >
         <h2 className="text-xl md:text-2xl font-bold mb-2 text-gray-900">My programming origins</h2>
         <div className="flex flex-col md:flex-row items-center gap-6 mb-4">
-          <img src="https://placehold.co/200x200" alt="Programming origins" className="rounded-xl mb-4 md:mb-0" />
+          <motion.img
+            src="https://placehold.co/200x200"
+            alt="Programming origins"
+            className="rounded-xl mb-4 md:mb-0"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={originsInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+          />
           <p className="text-gray-700 text-base md:text-lg">My journey in tech began with a curiosity for how things work and a love for building. I started by automating small tasks and creating simple games, which sparked my passion for software development. Over time, I taught myself to code and began freelancing, building everything from landing pages to full-stack apps.</p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Finding My Way to Web */}
-      <section className="mb-16">
+      <motion.section
+        ref={webRef}
+        className="mb-16"
+        initial={{ opacity: 0, y: 40 }}
+        animate={webInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+      >
         <h2 className="text-xl md:text-2xl font-bold mb-2 text-gray-900">Finding My Way to Web</h2>
         <div className="flex flex-col md:flex-row items-center gap-6 mb-4">
-          <img src="https://placehold.co/200x200" alt="Web journey" className="rounded-xl mb-4 md:mb-0" />
+          <motion.img
+            src="https://placehold.co/200x200"
+            alt="Web journey"
+            className="rounded-xl mb-4 md:mb-0"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={webInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+          />
           <p className="text-gray-700 text-base md:text-lg">After exploring mobile and desktop development, I found my true passion in web technologies. The creativity and rapid evolution of the web inspired me to dive deep into HTML, CSS, JavaScript, and frameworks like React. Building for the web became my playground for creativity and problem-solving.</p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Life Beyond Code */}
-      <section className="mb-16">
+      <motion.section
+        ref={lifeRef}
+        className="mb-16"
+        initial={{ opacity: 0, y: 40 }}
+        animate={lifeInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+      >
         <h2 className="text-xl md:text-2xl font-bold mb-2 text-gray-900">Life Beyond Code</h2>
         <div className="flex flex-col md:flex-row items-center gap-6 mb-4">
-          <img src="https://placehold.co/200x200" alt="Life beyond code" className="rounded-xl mb-4 md:mb-0" />
+          <motion.img
+            src="https://placehold.co/200x200"
+            alt="Life beyond code"
+            className="rounded-xl mb-4 md:mb-0"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={lifeInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+          />
           <p className="text-gray-700 text-base md:text-lg">When I'm not coding, I enjoy spending time with family, exploring new places, and tinkering with side projects. I believe in lifelong learning and maintaining a healthy balance between work and life. My curiosity drives me to keep learning and growing, both personally and professionally.</p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Experience Timeline */}
       <Timeline />
 
       {/* Newsletter */}
-      <section className="mt-16 text-center">
+      <motion.section
+        ref={newsletterRef}
+        className="mt-16 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        animate={newsletterInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+      >
         <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900">Subscribe to my newsletter</h2>
         <p className="text-gray-600 mb-6">A periodic update about my life, recent blog posts, how-tos, and discoveries.</p>
         <form className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto">
@@ -451,7 +536,7 @@ function About() {
           <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">Subscribe</button>
         </form>
         <div className="text-xs text-gray-400 mt-2">NO SPAM. You can unsubscribe at any time!</div>
-      </section>
+      </motion.section>
     </div>
   );
 }
