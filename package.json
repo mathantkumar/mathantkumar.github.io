@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@fontsource/lexend": "^5.2.9",
     "@fontsource/unbounded": "^5.2.6",
     "@testing-library/jest-dom": "^5.17.0",
