@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8a6f598b.css",
+    "main.js": "/static/js/main.758c2cc3.js",
+    "static/js/453.078f297d.chunk.js": "/static/js/453.078f297d.chunk.js",
+    "static/media/unbounded-latin-ext-700-normal.woff": "/static/media/unbounded-latin-ext-700-normal.0f359c8a5fcc90dd1325.woff",
+    "static/media/unbounded-latin-ext-700-normal.woff2": "/static/media/unbounded-latin-ext-700-normal.f9f842e4e5fffa642d72.woff2",
+    "static/media/unbounded-latin-700-normal.woff": "/static/media/unbounded-latin-700-normal.bdc54a7c5449516d99ff.woff",
+    "service-worker.js": "/service-worker.js",
+    "static/media/unbounded-latin-700-normal.woff2": "/static/media/unbounded-latin-700-normal.cbba5c61d091258ae560.woff2",
+    "static/media/lexend-latin-400-normal.woff": "/static/media/lexend-latin-400-normal.87c39d401712facf2a0d.woff",
+    "static/media/lexend-latin-ext-400-normal.woff": "/static/media/lexend-latin-ext-400-normal.14751a70310f66a2dc7a.woff",
+    "static/media/unbounded-cyrillic-700-normal.woff": "/static/media/unbounded-cyrillic-700-normal.a24caeeca99b569f7e8a.woff",
+    "static/media/lexend-latin-400-normal.woff2": "/static/media/lexend-latin-400-normal.86d84d713c64771db412.woff2",
+    "static/media/lexend-latin-ext-400-normal.woff2": "/static/media/lexend-latin-ext-400-normal.c3024f4ceab84bf0ac76.woff2",
+    "static/media/unbounded-cyrillic-700-normal.woff2": "/static/media/unbounded-cyrillic-700-normal.aa9a9b0055ea1bf4a947.woff2",
+    "static/media/unbounded-vietnamese-700-normal.woff": "/static/media/unbounded-vietnamese-700-normal.cc4dab35b6dbdf8d3eb2.woff",
+    "static/media/lexend-vietnamese-400-normal.woff": "/static/media/lexend-vietnamese-400-normal.b38777019f1d3f1ab3f1.woff",
+    "static/media/unbounded-vietnamese-700-normal.woff2": "/static/media/unbounded-vietnamese-700-normal.e7c01675f03d6ac3c3b2.woff2",
+    "static/media/lexend-vietnamese-400-normal.woff2": "/static/media/lexend-vietnamese-400-normal.526a12de08742f779fd0.woff2",
+    "static/media/unbounded-cyrillic-ext-700-normal.woff": "/static/media/unbounded-cyrillic-ext-700-normal.e875a45367a901b969f4.woff",
+    "static/media/unbounded-cyrillic-ext-700-normal.woff2": "/static/media/unbounded-cyrillic-ext-700-normal.e749e7f0b884091520ad.woff2",
+    "index.html": "/index.html",
+    "main.8a6f598b.css.map": "/static/css/main.8a6f598b.css.map",
+    "main.758c2cc3.js.map": "/static/js/main.758c2cc3.js.map",
+    "453.078f297d.chunk.js.map": "/static/js/453.078f297d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8a6f598b.css",
+    "static/js/main.758c2cc3.js"
+  ]
+}
