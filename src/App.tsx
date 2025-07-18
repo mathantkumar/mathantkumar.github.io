@@ -1,286 +1,355 @@
-import React, { useState, createContext, useContext, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import SnowDustBackground from './components/SnowDustBackground';
-import MovingStarsBackground from './components/MovingStarsBackground';
-import SnowMoundsFooter from './components/SnowMoundsFooter';
-import ThemeToggle from './components/ThemeToggle';
-import ThemedButton from './components/ThemedButton';
-import { motion, useInView } from 'framer-motion';
-
-// Theme context
-const ThemeContext = createContext<{ theme: 'dark' | 'light'; toggle: () => void }>({ theme: 'dark', toggle: () => {} });
-export function useTheme() { return useContext(ThemeContext); }
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import profileImg from './imgs/profile.jpg';
 
 const navItems = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Projects', path: '/projects' },
-  { name: 'Contact', path: '/contact' },
+  { name: 'Home', to: '/' },
+  { name: 'About', to: '/about' },
+  { name: 'Blog', href: '#blog' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Toolbox', href: '#toolbox' },
+  { name: 'Contact', href: '#contact' },
 ];
 
-const projects = [
-  {
-    title: 'Personal Portfolio Website',
-    headline: 'Showcasing My Work and Skills',
-    description: 'A modern, responsive portfolio built with React and Tailwind CSS.',
-    results: ['React', 'Tailwind CSS', 'TypeScript'],
-  },
-  {
-    title: 'E-commerce Platform',
-    headline: 'Fullstack MERN Application',
-    description: 'A scalable e-commerce platform with user authentication, cart, and payment integration.',
-    results: ['MongoDB', 'Express', 'React', 'Node.js'],
-  },
-  {
-    title: 'Blog Engine',
-    headline: 'Content Management System',
-    description: 'A CMS for creating and managing blog posts with markdown support.',
-    results: ['Next.js', 'Prisma', 'PostgreSQL'],
-  },
-  {
-    title: 'Chat Application',
-    headline: 'Real-time Messaging',
-    description: 'A real-time chat app with WebSocket and group chat support.',
-    results: ['Socket.io', 'React', 'Node.js'],
-  },
-  {
-    title: 'Task Manager',
-    headline: 'Productivity Tool',
-    description: 'A Kanban-style task manager for teams and individuals.',
-    results: ['React', 'Redux', 'Firebase'],
-  },
-  {
-    title: 'API Integrations',
-    headline: 'Connecting Services',
-    description: 'Projects integrating third-party APIs for weather, news, and more.',
-    results: ['REST', 'GraphQL', 'OAuth'],
-  },
+const socialLinks = [
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mathan-kumar-mk/', icon: (
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
+  )},
 ];
 
-const footerMenu = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Projects', path: '/projects' },
-  { name: 'Contact', path: '/contact' },
+const timeline = [
+  { year: "2022 - 2024", company: "Tata Consultancy Services", logo: "https://placehold.co/32x32?text=TCS", role: "Junior Frontend Developer", icon: "💻", contributions: "Built and maintained UI components, collaborated with cross-functional teams, and improved code quality." },
+  { year: "2024-present", company: "Nielsen", logo: "https://placehold.co/32x32?text=N", role: "Software Engineer", icon: "🚀", contributions: "Developing AI-driven features, optimizing performance, and mentoring junior developers." },
 ];
 
-function Home() {
-  const { theme } = useTheme();
-  const textColor = theme === 'dark' ? 'text-[#232946]' : 'text-[#232946]';
+type TimelineItem = {
+  year: string;
+  company: string;
+  logo: string;
+  role: string;
+  icon: string;
+  contributions: string;
+};
+
+function Timeline() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
+  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
-    <header className="relative flex flex-col items-center justify-center py-24 mt-24 bg-transparent overflow-visible w-full">
-      <div className="relative w-full max-w-screen-2xl mx-auto rounded-3xl shadow-2xl bg-white/60 backdrop-blur-md px-2 sm:px-6 py-16 sm:py-20 flex flex-col items-center z-10 animate-fadeinup shadow-black/20">
-        <h1 className={`heading-unbounded text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-center ${textColor}`}>hi, 
-          im Mathan</h1>
-        <h2 className={`heading-unbounded text-2xl md:text-4xl font-semibold mb-8 text-center ${textColor}`}>Fullstack Developer</h2>
-        <p className="max-w-2xl text-xl sm:text-2xl text-gray-600 font-light mb-10 text-center">
-          I write code that sometimes works on the first try, drink more coffee than my laptop, and turn wild ideas into beautiful, functional web apps. Whether you need a bug squasher, a pixel pusher, or just someone who can Google really well, I'm your dev. Welcome to my digital playground!
-        </p>
-        <ThemedButton onClick={() => {}}>View My Projects</ThemedButton>
-      </div>
-    </header>
-  );
-}
-
-function Projects() {
-  const { theme } = useTheme();
-  const bgColor = theme === 'dark' ? '#232946' : '#e0e7ef';
-  const textColor = theme === 'dark' ? 'text-[#232946]' : 'text-[#232946]';
-  const badgeBg = theme === 'dark' ? 'bg-[#232946]/10' : 'bg-[#e0e7ef]';
-  const cardLeftBg = theme === 'dark' ? 'bg-[#232946]/10' : 'bg-[#e0e7ef]';
-  const iconColor = theme === 'dark' ? 'text-[#232946]' : 'text-[#232946]';
-
-  // For staggered animation
-  const cardsRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // Create a separate component for each project card
-  const ProjectCard = ({ project, idx }: { project: any; idx: number }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: '-80px' });
-
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 80, scale: 0.85 }}
-        animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{
-          duration: 0.7,
-          delay: isInView ? idx * 0.15 : 0,
-          ease: [0.34, 1.56, 0.64, 1], // bounce-like
-        }}
-        className={`flex flex-col md:flex-row rounded-3xl p-0 overflow-hidden w-full max-w-screen-2xl mx-auto backdrop-blur-xl border
-          ${theme === 'dark' 
-            ? 'bg-white/10 border-white/20 shadow-2xl shadow-black/30' 
-            : 'bg-white/40 border-white/50 shadow-2xl shadow-blue-900/10'
-          }
-          hover:shadow-3xl transition-all duration-500 ease-out
-        `}
-        style={{ minHeight: '220px' }}
-      >
-        {/* Left: Image and Title */}
-        <div className={`md:w-1/3 flex flex-col items-center justify-center p-8 min-h-[180px] backdrop-blur-sm
-          ${theme === 'dark' 
-            ? 'bg-white/5 border-r border-white/10' 
-            : 'bg-white/30 border-r border-white/40'
-          }
-        `}>
-          <div className={`w-24 h-24 rounded-2xl flex items-center justify-center mb-4 backdrop-blur-md border
-            ${theme === 'dark' 
-              ? 'bg-white/10 border-white/20 shadow-lg' 
-              : 'bg-white/50 border-white/60 shadow-lg'
-            }
-          `}>
-            {/* Placeholder image */}
-            <span className={`text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-[#232946]'}`}>{project.title[0]}</span>
-          </div>
-          <div className={`heading-unbounded text-xl font-bold text-center ${theme === 'dark' ? 'text-white' : 'text-[#232946]'}`}>{project.title}</div>
+    <section className="py-16 px-2 sm:px-8 flex flex-col items-center">
+      <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Experience</h2>
+      <div ref={containerRef} className="relative w-full max-w-3xl mx-auto flex flex-col items-center">
+        {/* Vertical animated line */}
+        <motion.div
+          style={{ scaleY: lineScale }}
+          className="absolute left-1/2 top-0 -translate-x-1/2 w-1 h-full bg-blue-300 origin-top z-0"
+        />
+        <div className="flex flex-col gap-16 w-full z-10">
+          {timeline.map((item, idx) => (
+            <TimelineEntry key={item.year + item.company} item={item} idx={idx} />
+          ))}
         </div>
-        {/* Right: Summary and Tech Stack */}
-        <div className="md:w-2/3 flex flex-col justify-center p-8">
-          <h3 className={`heading-unbounded text-xl font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-[#232946]'}`}>{project.headline}</h3>
-          <p className={`text-lg mb-4 ${theme === 'dark' ? 'text-white/90' : 'text-[#232946]/80'}`}>{project.description}</p>
-          <div className="flex flex-wrap gap-2 mb-2">
-            {project.results.map((tech: string, i: number) => (
-              <span key={i} className={`text-sm px-3 py-1 rounded-full font-medium backdrop-blur-sm border
-                ${theme === 'dark' 
-                  ? 'bg-white/10 border-white/20 text-white' 
-                  : 'bg-white/50 border-white/60 text-[#232946]'
-                }
-              `}>
-                {tech}
-              </span>
-            ))}
-          </div>
-          <button
-            className={`mt-2 rounded-full font-semibold shadow-lg transition text-base px-8 py-3 w-max backdrop-blur-sm border
-              ${theme === 'dark' 
-                ? 'bg-white/20 border-white/30 text-white hover:bg-white/30 hover:border-white/50' 
-                : 'bg-white/60 border-white/70 text-[#232946] hover:bg-white/80 hover:border-white/90'
-              }
-            `}
-          >
-            Learn More
-          </button>
-        </div>
-      </motion.div>
-    );
-  };
-
-  return (
-    <main className="flex-1 w-full max-w-screen-2xl mx-auto px-1 sm:px-2 py-12 mt-24 space-y-8">
-      <h2 className="heading-unbounded text-4xl md:text-5xl font-bold mb-8 text-center">Projects</h2>
-      <div className="flex flex-col gap-8">
-        {projects.map((project, idx) => (
-          <ProjectCard key={idx} project={project} idx={idx} />
-        ))}
       </div>
-    </main>
-  );
-}
-
-function About() {
-  return (
-    <section className="max-w-3xl mx-auto px-4 py-24 mt-24 text-center">
-      <h2 className="text-3xl font-bold mb-4">About Me</h2>
-      <p className="text-lg text-gray-700">I'm Mathan, a passionate fullstack developer with experience in building scalable web applications and modern user interfaces. I love solving problems and learning new technologies.</p>
     </section>
   );
 }
 
-function Contact() {
+function TimelineEntry({ item, idx }: { item: TimelineItem; idx: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
   return (
-    <section className="max-w-3xl mx-auto px-4 py-24 mt-24 text-center">
-      <h2 className="text-3xl font-bold mb-4">Contact</h2>
-      <p className="text-lg text-gray-700 mb-6">Want to work together or have a question? Reach out!</p>
-      <form className="space-y-4 max-w-md mx-auto">
-        <input className="w-full border px-3 py-2 rounded" type="text" placeholder="Your Name" disabled />
-        <input className="w-full border px-3 py-2 rounded" type="email" placeholder="Your Email" disabled />
-        <textarea className="w-full border px-3 py-2 rounded" placeholder="Your Message" rows={4} disabled />
-        <button className="bg-blue-600 text-white px-4 py-2 rounded opacity-60 cursor-not-allowed" disabled>Send</button>
-      </form>
-    </section>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: idx % 2 === 0 ? -60 : 60 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.7, delay: isInView ? idx * 0.1 : 0, ease: 'easeOut' }}
+      className="relative flex items-center w-full min-h-[100px]"
+    >
+      {/* Left: Year & Company */}
+      <div className="flex-1 text-right pr-8 hidden md:block">
+        <div className="font-semibold text-blue-700 text-lg">{item.year}</div>
+        <div className="flex items-center justify-end gap-2 text-gray-700 text-base">
+          {item.logo && <img src={item.logo} alt={item.company + ' logo'} className="w-6 h-6 rounded bg-white border" />}
+          <span>{item.company}</span>
+        </div>
+      </div>
+      {/* Center: Milestone Icon */}
+      <div className="flex flex-col items-center">
+        <span className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white border-4 border-blue-300 shadow-lg">
+          <span className="text-2xl animate-pulse drop-shadow-lg">{item.icon}</span>
+          <span className="absolute w-16 h-16 rounded-full bg-blue-300/30 blur-xl animate-pulse" />
+        </span>
+      </div>
+      {/* Right: Role and Contributions */}
+      <div className="flex-1 text-left pl-8">
+        <div className="font-bold text-lg text-gray-900">{item.role}</div>
+        <div className="text-gray-500 text-sm mt-1">{item.contributions}</div>
+      </div>
+      {/* For mobile: year/company above, role and contributions below */}
+      <div className="md:hidden absolute left-0 right-0 top-full mt-2 flex flex-col items-center">
+        <div className="font-semibold text-blue-700 text-base">{item.year}</div>
+        <div className="flex items-center gap-2 text-gray-700 text-sm">
+          {item.logo && <img src={item.logo} alt={item.company + ' logo'} className="w-5 h-5 rounded bg-white border" />}
+          <span>{item.company}</span>
+        </div>
+        <div className="font-bold text-base text-gray-900 mt-1">{item.role}</div>
+        <div className="text-gray-500 text-sm mt-1">{item.contributions}</div>
+      </div>
+    </motion.div>
   );
 }
 
 function App() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-  const toggle = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
   return (
-    <ThemeContext.Provider value={{ theme, toggle }}>
-      <Router>
-        <div className={`flex flex-col min-h-screen text-gray-900 relative overflow-hidden bg-transparent ${theme === 'dark' ? '' : 'bg-white'}`}>
-          {/* Backgrounds */}
-          <MovingStarsBackground />
-          <SnowDustBackground />
-          {/* Floating Navigation Bar */}
-          <nav className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 rounded-full border border-gray-200 shadow-lg backdrop-blur-lg
-            flex items-center gap-2
-            ${theme === 'dark' ? 'bg-white/80' : 'bg-white/95'}
-            px-10 py-5
-            min-h-[64px]
-            w-auto
-          `}>
-            <ul className="flex flex-wrap gap-4 md:gap-10 text-base md:text-lg font-semibold tracking-wide">
-              {navItems.map((item) => (
-                <li key={item.name}>
-                  <Link to={item.path} className={`px-5 py-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400
-                    ${theme === 'dark' ? 'text-[#232946] hover:bg-[#232946]/10' : 'text-[#232946] hover:bg-[#e0e7ef]'}
-                  `}>
-                    {item.name}
-                  </Link>
-                </li>
+    <Router>
+      {/* Floating NavBar always visible */}
+      <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-full border border-gray-200 shadow-lg backdrop-blur-lg
+        bg-white/90 px-4 py-2 flex items-center gap-3 min-h-[40px] w-auto max-w-full text-base">
+        <div className="font-bold text-base">Mathan</div>
+        <ul className="flex gap-2 md:gap-4 text-sm md:text-base font-medium">
+          {navItems.map(item => (
+            item.to ? (
+              <li key={item.name}><Link to={item.to} className="hover:underline px-2 py-1">{item.name}</Link></li>
+            ) : (
+              <li key={item.name}><a href={item.href} className="hover:underline px-2 py-1">{item.name}</a></li>
+            )
+          ))}
+        </ul>
+        <div className="flex gap-2">
+          {socialLinks.map(link => (
+            <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-700" aria-label={link.name}>{link.icon}</a>
+          ))}
+        </div>
+      </nav>
+      {/* Page content below nav */}
+      <div className="pt-28">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+// --- Home Page ---
+function Home() {
+  // Keep your current home page content as-is
+  return (
+    <>
+      <div className="min-h-screen flex flex-col bg-white text-gray-900">
+        {/* HERO */}
+        <header id="home" className="flex flex-col items-center justify-center text-center py-10 px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+            className="relative flex items-center justify-center mb-6"
+          >
+            {/* Outer circle */}
+            <motion.span
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+              className="absolute w-36 h-36 md:w-44 md:h-44 rounded-full border-2 border-blue-200"
+            />
+            {/* Inner circle */}
+            <motion.span
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+              className="absolute w-34 h-34 md:w-42 md:h-42 rounded-full border-2 border-blue-100"
+            />
+            <motion.img
+              src={profileImg}
+              alt="Mathan headshot"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gray-200 shadow object-cover relative z-10"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
+            />
+          </motion.div>
+          <motion.h1
+            className="text-4xl md:text-5xl font-extrabold mb-2"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
+          >
+            Hey, I'm Mathan!
+          </motion.h1>
+          <motion.p
+            className="text-lg md:text-xl mb-6 text-gray-700"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.8, ease: 'easeOut' }}
+          >
+            Welcome to my corner of the internet!
+          </motion.p>
+          <motion.p
+            className="max-w-xl text-base md:text-lg text-gray-600 mb-8"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.0, ease: 'easeOut' }}
+          >
+            I'm a fullstack developer with a love for design and a knack for tinkering. This site is my playground for experimenting with new ideas and sharing what I learn!
+          </motion.p>
+        </header>
+
+        {/* ABOUT */}
+        <section id="about" className="max-w-3xl mx-auto px-4 py-16 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">What sets me apart</h2>
+          <p className="text-lg text-gray-700 mb-6">I'm Mathan, a passionate fullstack developer with experience in building scalable web applications and modern user interfaces. I love solving problems and learning new technologies.</p>
+          <a href="#contact" className="inline-block px-6 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Learn more about me</a>
+        </section>
+
+        {/* PROJECTS */}
+        <section id="projects" className="max-w-5xl mx-auto px-4 py-16">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Projects</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* projects data removed as per edit hint */}
+          </div>
+        </section>
+
+        {/* BLOG */}
+        <section id="blog" className="max-w-5xl mx-auto px-4 py-16">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Blog</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* blogPosts data removed as per edit hint */}
+          </div>
+        </section>
+
+        {/* TOOLBOX */}
+        <section id="toolbox" className="max-w-3xl mx-auto px-4 py-16 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8">Toolbox</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {/* toolbox data removed as per edit hint */}
+          </div>
+        </section>
+
+        {/* NEWSLETTER/CONTACT */}
+        <section id="contact" className="max-w-3xl mx-auto px-4 py-16 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Subscribe to my newsletter</h2>
+          <p className="text-gray-600 mb-6">A periodic update about my life, recent blog posts, how-tos, and discoveries.</p>
+          <form className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto">
+            <input type="email" placeholder="Email" className="border px-4 py-2 rounded w-full sm:w-auto" />
+            <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">Subscribe</button>
+          </form>
+          <div className="text-xs text-gray-400 mt-2">NO SPAM. You can unsubscribe at any time!</div>
+        </section>
+
+        {/* FOOTER */}
+        <footer className="py-8 mt-8 border-t text-center text-sm text-gray-500">
+          <div className="flex flex-col items-center gap-2">
+            <div>I'm Mathan - a fullstack developer and lifelong learner. Thanks for visiting!</div>
+            <div className="flex gap-4 justify-center mt-2">
+              {socialLinks.map(link => (
+                <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700" aria-label={link.name}>{link.icon}</a>
               ))}
-            </ul>
-            <ThemeToggle />
-          </nav>
+            </div>
+            <div className="flex gap-4 justify-center mt-2">
+              {navItems.map(item => (
+                <a key={item.name} href={item.href} className="hover:underline">{item.name}</a>
+              ))}
+            </div>
+            <div className="mt-2">&copy; 2025 Mathan Kumar</div>
+          </div>
+        </footer>
+      </div>
+    </>
+  );
+}
 
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Home />
-                {theme === 'light' && <SnowMoundsFooter />}
-              </>
-            } />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={
-              <>
-                <Projects />
-                {theme === 'light' && <SnowMoundsFooter />}
-              </>
-            } />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-
-          {/* Footer */}
-          <footer className={`py-10 mt-8 z-10 relative ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-[#e0f2ff] text-[#232946]'}`}>
-            <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <div className="text-xl font-bold mb-2">Mathan Kumar © 2025</div>
-                <div className="text-sm mb-2">Chennai, India</div>
-                <div className="text-sm">mathan@email.com</div>
+// --- About Page ---
+function About() {
+  return (
+    <div className="max-w-7xl mx-auto px-8 md:px-24 py-12">
+      {/* Hero Section: Greeting, Heading, and Overlapping Images */}
+      <div className="relative mt-4">
+        <div className="relative space-y-8 md:space-y-12">
+          <div className="space-y-8 relative w-full before:absolute before:top-0 before:h-px before:bg-gray-200 before:left-0 before:right-0 after:left-0 after:right-0 after:absolute after:bottom-0 after:h-px after:bg-gray-200">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-24">
+              {/* Left: Greeting and Heading */}
+              <div className="flex-1 basis-1/2 order-2 mx-auto lg:order-1 lg:m-0 lg:pr-20">
+                <div className="text-center text-sm font-medium text-indigo-600 lg:text-left mb-2 mt-8">
+                  <span>Good morning!</span>
+                </div>
+                <h1 className="mx-auto max-w-2xl text-balance text-center text-2xl font-medium leading-tight tracking-tighter text-gray-900 md:text-3xl lg:text-left lg:text-4xl lg:leading-[48px] whitespace-nowrap">
+                  I'm Mathan, a creative fullstack engineer.
+                </h1>
+                <p className="mt-4 mb-8 text-base md:text-lg text-gray-700 text-center lg:text-left">Here's a quick intro about me and what I love to do</p>
               </div>
-              <div>
-                <div className="font-semibold mb-2">Menu</div>
-                <ul className="space-y-1">
-                  {footerMenu.map((item) => (
-                    <li key={item.name}><Link to={item.path} className="hover:underline">{item.name}</Link></li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <div className="font-semibold mb-2">Follow me:</div>
-                <div className="flex space-x-3 mt-2">
-                  <span className="bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center">G</span>
-                  <span className="bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center">L</span>
-                  <span className="bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center">T</span>
+              {/* Right: Overlapping Image Grid */}
+              <div className="flex-1 basis-1/2 order-1 my-8 flex-shrink-0 lg:order-2 lg:my-0 flex justify-center">
+                <div className="relative w-full max-w-[600px]">
+                  <div className="relative grid grid-cols-3 gap-8">
+                    <div className="relative z-20 -translate-y-4">
+                      <div className="relative mx-auto shrink-0 rounded-2xl overflow-hidden border shadow bg-white cursor-grab active:cursor-grabbing" style={{ width: 200, height: 200, perspective: 400 }}>
+                        <img src="https://placehold.co/200x200" alt="Sample 1" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                    <div className="relative z-30">
+                      <div className="relative mx-auto shrink-0 rounded-2xl overflow-hidden border shadow bg-white cursor-grab active:cursor-grabbing" style={{ width: 200, height: 200, perspective: 400 }}>
+                        <img src="https://placehold.co/200x200" alt="Sample 2" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                    <div className="relative z-20 translate-y-6">
+                      <div className="relative mx-auto shrink-0 rounded-2xl overflow-hidden border shadow bg-white cursor-grab active:cursor-grabbing" style={{ width: 200, height: 200, perspective: 400 }}>
+                        <img src="https://placehold.co/200x200" alt="Sample 3" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="text-center text-xs text-gray-400 mt-8">© Mathan Kumar 2025</div>
-          </footer>
+          </div>
         </div>
-      </Router>
-    </ThemeContext.Provider>
+      </div>
+      {/* Add margin above 'My programming origins' */}
+      <div className="mt-24" />
+
+      {/* Programming Origins */}
+      <section className="mb-16">
+        <h2 className="text-xl md:text-2xl font-bold mb-2">My programming origins</h2>
+        <div className="flex flex-col md:flex-row items-center gap-6 mb-4">
+          <img src="https://placehold.co/200x200" alt="Programming origins" className="rounded-xl mb-4 md:mb-0" />
+          <p className="text-gray-700 text-base md:text-lg">My journey in tech began with a curiosity for how things work and a love for building. I started by automating small tasks and creating simple games, which sparked my passion for software development. Over time, I taught myself to code and began freelancing, building everything from landing pages to full-stack apps.</p>
+        </div>
+      </section>
+
+      {/* Finding My Way to Web */}
+      <section className="mb-16">
+        <h2 className="text-xl md:text-2xl font-bold mb-2">Finding My Way to Web</h2>
+        <div className="flex flex-col md:flex-row items-center gap-6 mb-4">
+          <img src="https://placehold.co/200x200" alt="Web journey" className="rounded-xl mb-4 md:mb-0" />
+          <p className="text-gray-700 text-base md:text-lg">After exploring mobile and desktop development, I found my true passion in web technologies. The creativity and rapid evolution of the web inspired me to dive deep into HTML, CSS, JavaScript, and frameworks like React. Building for the web became my playground for creativity and problem-solving.</p>
+        </div>
+      </section>
+
+      {/* Life Beyond Code */}
+      <section className="mb-16">
+        <h2 className="text-xl md:text-2xl font-bold mb-2">Life Beyond Code</h2>
+        <div className="flex flex-col md:flex-row items-center gap-6 mb-4">
+          <img src="https://placehold.co/200x200" alt="Life beyond code" className="rounded-xl mb-4 md:mb-0" />
+          <p className="text-gray-700 text-base md:text-lg">When I'm not coding, I enjoy spending time with family, exploring new places, and tinkering with side projects. I believe in lifelong learning and maintaining a healthy balance between work and life. My curiosity drives me to keep learning and growing, both personally and professionally.</p>
+        </div>
+      </section>
+
+      {/* Experience Timeline */}
+      <Timeline />
+
+      {/* Newsletter */}
+      <section className="mt-16 text-center">
+        <h2 className="text-xl md:text-2xl font-bold mb-4">Subscribe to my newsletter</h2>
+        <p className="text-gray-600 mb-6">A periodic update about my life, recent blog posts, how-tos, and discoveries.</p>
+        <form className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto">
+          <input type="email" placeholder="Email" className="border px-4 py-2 rounded w-full sm:w-auto" />
+          <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">Subscribe</button>
+        </form>
+        <div className="text-xs text-gray-400 mt-2">NO SPAM. You can unsubscribe at any time!</div>
+      </section>
+    </div>
   );
 }
 
