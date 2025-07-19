@@ -2,15 +2,16 @@ import React, { useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import profileImg from './imgs/profile.jpg';
-import laptopicon from './imgs/Laptop.svg';
 import ScrollToTop from './ScrollToTop';
+import HardwareSection from './HardwareSection';
+import AboutPanels from './AboutPanels';
 
 const navItems = [
   { name: 'Home', to: '/' },
   { name: 'About', to: '/about' },
   { name: 'Blog', href: '#blog' },
   { name: 'Projects', href: '#projects' },
-  { name: 'Toolbox', href: '#toolbox' },
+  { name: 'Toolbox', to: '/toolbox' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -103,6 +104,155 @@ function TimelineEntry({ item, idx }: { item: TimelineItem; idx: number }) {
   );
 }
 
+function ToolboxPage() {
+  // Sample applications with placeholder icons or emoji
+  const apps = [
+    // Add requested dev tools
+    { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+    { name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
+    { name: 'JavaScript (ES6)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+    { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'ASP.NET Core', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg' },
+    { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+    { name: 'Redux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg' },
+    { name: 'Jest', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg' },
+    { name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
+    { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+  ];
+  // Animation variants for staggered cards
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.06,
+        delayChildren: 0.2
+      }
+    }
+  };
+  const cardVariants = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { stiffness: 400, damping: 28, duration: 0.22 } }
+  };
+  // Replace NewsletterCard with new dark-themed newsletter section
+  const NewsletterCard = () => (
+    <section className="max-w-3xl mx-auto px-4 py-16 text-center">
+      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">Subscribe to my newsletter</h2>
+      <p className="text-gray-600 mb-6 text-gray-300">A periodic update about my life, recent blog posts, how-tos, and discoveries.</p>
+      <form className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto">
+        <input type="email" placeholder="Email" className="border px-4 py-2 rounded w-full sm:w-auto text-gray-900 bg-gray-200" />
+        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">Subscribe</button>
+      </form>
+      <div className="text-xs text-gray-400 mt-2 text-gray-300">NO SPAM. You can unsubscribe at any time!</div>
+    </section>
+  );
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className="min-h-screen flex flex-col items-center justify-center px-2 pt-0"
+      style={{ paddingTop: 0, marginTop: '-1.5rem' }}
+    >
+      <motion.hr
+        className="w-full max-w-lg border-t border-gray-200 mb-4"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+      />
+      <motion.h1
+        className="text-4xl font-bold text-center mb-4 text-gray-900"
+        style={{ marginTop: 0 }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.18, ease: 'easeOut' }}
+      >
+        Softwares &amp;&amp; Hardwares<br />
+        <span className="block text-4xl font-medium mt-1">I keep in my toolbox</span>
+      </motion.h1>
+      <motion.hr
+        className="w-full max-w-lg border-t border-gray-200 mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.22, ease: 'easeOut' }}
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.28, ease: 'easeOut' }}
+        className="bg-white rounded-xl shadow max-w-screen-lg w-full mx-auto p-6 relative overflow-hidden"
+      >
+         {/* Dotted grid background for the big card */}
+         <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true"
+           style={{
+             backgroundImage: 'radial-gradient(circle, #e5e7eb 1px, transparent 1.5px)',
+             backgroundSize: '12px 12px',
+             opacity: 0.5
+           }}
+         />
+         <motion.h2
+           className="text-xl font-bold text-center mb-6 text-blue-700 z-10"
+           initial={{ opacity: 0, y: 16 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.5, delay: 0.38, ease: 'easeOut' }}
+         >Applications</motion.h2>
+         <motion.div
+           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4 py-6 z-10"
+           variants={containerVariants}
+           initial="hidden"
+           animate="show"
+         >
+           {apps.map(app => (
+             <motion.div
+               key={app.name}
+               variants={cardVariants}
+               whileHover={{ scale: 1.10, boxShadow: '2px 4px 16px 2px rgba(80,120,255,0.10)' }}
+               transition={{ type: 'spring', stiffness: 500, damping: 18, duration: 0.15 }}
+               className="flex flex-col items-center justify-center bg-white rounded-xl border border-gray-200 ring-1 ring-gray-200 shadow-sm hover:shadow-md p-2 transition-all duration-250 cursor-pointer relative overflow-hidden"
+               style={{ minHeight: 100 }}
+             >
+               <div className="flex items-center justify-center w-10 h-10 mb-1 text-2xl">
+                 {app.icon.startsWith('http') ? (
+                   <img src={app.icon} alt={app.name} className="w-8 h-8 object-contain" />
+                 ) : (
+                   <span>{app.icon}</span>
+                 )}
+               </div>
+               <div className="text-xs font-medium text-gray-600 text-center mt-1 z-10">{app.name}</div>
+             </motion.div>
+           ))}
+         </motion.div>
+       </motion.div>
+      {/* HardwareSection above the newsletter card */}
+      <HardwareSection />
+      {/* Newsletter card below the HardwareSection */}
+      <NewsletterCard />
+    </motion.div>
+  );
+}
+
+// Move homepage footer to a reusable Footer component
+function Footer() {
+  return (
+    <footer className="py-8 mt-8 border-t text-center text-sm text-gray-500 bg-white">
+      <div className="flex flex-col items-center gap-2">
+        <div>I'm Mathan - a fullstack developer and lifelong learner. Thanks for visiting!</div>
+        <div className="flex gap-4 justify-center mt-2">
+          {socialLinks.map(link => (
+            <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700" aria-label={link.name}>{link.icon}</a>
+          ))}
+        </div>
+        <div className="flex gap-4 justify-center mt-2">
+          {navItems.map(item => (
+            <a key={item.name} href={item.href} className="hover:underline">{item.name}</a>
+          ))}
+        </div>
+        <div className="mt-2">&copy; {new Date().getFullYear()} Mathan Kumar</div>
+      </div>
+    </footer>
+  );
+}
+
 function App() {
   return (
     <Router>
@@ -111,7 +261,7 @@ function App() {
       <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-full border border-gray-200 shadow-lg backdrop-blur-lg
         bg-white/90 px-4 py-2 flex items-center gap-3 min-h-[40px] w-auto max-w-full text-base">
         {/* Icon + Brand */}
-        <div className="font-bold text-base">Mathan</div>
+        {/* <div className="font-bold text-base">Mathan</div> */}
         <ul className="flex gap-2 md:gap-4 text-sm md:text-base font-medium">
           {navItems.map(item => (
             item.to ? (
@@ -132,8 +282,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/toolbox" element={<ToolboxPage />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }
@@ -228,20 +380,26 @@ function ProjectsCard() {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
       whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
-      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-col text-left h-full gap-4 border border-white/30"
+      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-4 flex flex-col text-left h-full gap-2 border border-white/30"
     >
       <div className="font-bold text-lg mb-1 text-gray-800">Projects</div>
-      <div className="flex flex-row items-start gap-4">
+      <div className="flex flex-row items-start gap-2">
         {/* Description */}
         <div className="flex-1">
-          <div className="text-base mb-2 text-gray-600">A selection of my favorite web projects and experiments. I love building things that are useful, beautiful, and fun.</div>
+          <div className="text-sm mb-1 text-gray-600">
+            <div>A selection of my favorite web projects</div>
+            <div>and experiments. I love building things</div>
+            <div>that are useful, beautiful, and fun.</div>
+            <div>From interactive dashboards to creative UI concepts,</div>
+            <div>I focus on clean code, performance, and delightful user experiences.</div>
+          </div>
         </div>
         {/* Mini project card with image */}
-        <div className="bg-blue-50 rounded-xl p-3 shadow flex flex-col items-center min-w-[120px] max-w-[140px]">
+        <div className="bg-blue-50 rounded-xl p-2 shadow flex flex-col items-center min-w-[110px] max-w-[130px]">
           <img src="https://placehold.co/100x60" alt="Project" className="rounded w-full h-[60px] object-cover" />
         </div>
       </div>
-      <a href="#projects" className="flex items-center gap-1 text-blue-600 font-semibold hover:underline mt-2 group">
+      <a href="#projects" className="flex items-center gap-1 text-blue-600 font-semibold hover:underline mt-0 group text-sm">
         Learn more
         <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
       </a>
@@ -250,28 +408,75 @@ function ProjectsCard() {
 }
 
 function BookingCard() {
-  const ref = useRef(null);
+  // Calendar logic
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const monthName = today.toLocaleString('default', { month: 'long' });
+  const firstDay = new Date(year, month, 1).getDay();
+  const days = Array.from({ length: 21 }, (_, i) => i + 1);
+  const grid = [
+    ...Array(firstDay).fill(null),
+    ...days
+  ];
+  while (grid.length % 7 !== 0) grid.push(null);
+  // Animation: match ProjectsCard
+  const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
+      transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
       whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
-      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-row items-center text-left h-full gap-4 border border-white/30"
+      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-col items-center text-left h-full gap-4 border border-white/30 w-full relative overflow-hidden"
+      style={{ boxShadow: '0 8px 32px 0 rgba(80,120,255,0.15)' }}
     >
-      <div className="flex-shrink-0 flex flex-col items-center">
-        <svg width="36" height="36" fill="none" viewBox="0 0 36 36"><rect width="36" height="36" rx="8" fill="#E0E7FF"/><path d="M12 16h12M12 20h8" stroke="#3730A3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><rect x="8" y="8" width="20" height="20" rx="4" stroke="#3730A3" strokeWidth="2"/></svg>
+      <div className="relative w-full flex items-center justify-between mb-1">
+        <span className="font-bold text-lg text-gray-800">Book a call with me</span>
+        <span className="text-sm text-gray-500 ml-2 bg-white border border-gray-200 rounded-lg px-3 py-1 shadow-sm">30 min call</span>
       </div>
-      <div className="flex-1">
-        <div className="font-bold text-lg mb-1 text-gray-800">Book a call with me</div>
-        <div className="text-base mb-2 text-gray-600">I’d love to chat even if there’s no agenda!</div>
-        <div className="w-full max-w-xs mb-2 flex justify-center">
-          <img src="https://img.icons8.com/ios-filled/200/000000/calendar--v1.png" alt="Calendar" className="w-28 h-28 object-contain rounded-xl shadow" />
+      <div className="text-base mb-2 text-gray-600 w-full">I’d love to chat even if there’s no agenda!</div>
+      {/* Calendar inside card (fuller, with border and bg) */}
+      <div className="flex items-center justify-center w-full flex-1">
+        <div className="bg-white rounded-xl border border-gray-200 shadow w-full max-w-[380px] flex flex-col items-center p-2">
+          <div className="grid grid-cols-7 gap-1 w-full mb-2 mt-2">
+            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(d => (
+              <div key={d} className="text-xs font-semibold text-gray-500 text-center py-1">{d}</div>
+            ))}
+          </div>
+          <div className="grid grid-cols-7 gap-1 w-full">
+            {grid.map((day, i) => (
+              day ? (
+                <div
+                  key={i}
+                  className="w-10 h-10 flex items-center justify-center rounded cursor-pointer hover:bg-blue-100 text-gray-800 text-base font-medium transition"
+                  tabIndex={0}
+                  aria-label={`Book for ${monthName} ${day}`}
+                >
+                  {day}
+                </div>
+              ) : (
+                <div key={i} className="w-10 h-10" />
+              )
+            ))}
+          </div>
         </div>
-        <a href="https://cal.com/mathankumar/30min" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition text-sm shadow">Book Now</a>
       </div>
+      {/* Arrow link at bottom right, facing up (45deg) */}
+      <a
+        href="https://cal.com/mathankumar/30min"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition transform -rotate-45"
+        style={{ boxShadow: '0 2px 8px 0 rgba(80,120,255,0.15)' }}
+        aria-label="Book now"
+      >
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
     </motion.div>
   );
 }
@@ -281,53 +486,65 @@ function Home() {
     <>
       <div className="min-h-screen flex flex-col bg-white text-gray-900">
         {/* HERO */}
-        <header id="home" className="relative flex flex-col md:flex-row items-center justify-center text-center py-10 px-4 gap-8">
-          {/* Decorative computer-related emojis (near border) */}
-          <span className="hidden md:block absolute left-2 top-2 text-4xl opacity-30 select-none pointer-events-none">💻</span>
-          <span className="hidden md:block absolute right-2 top-4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🖥️</span>
-          <span className="hidden md:block absolute left-12 bottom-4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🖱️</span>
-          <span className="hidden md:block absolute right-12 bottom-2 text-4xl opacity-30 select-none pointer-events-none">⌨️</span>
-          <span className="hidden md:block absolute left-[60%] top-1/4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🧑‍💻</span>
-          {/* Hero content (image + text) */}
-          <div className="flex flex-col items-center justify-center text-center md:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-              className="relative flex items-center justify-center mb-6"
-            >
-              {/* Outer circle */}
-              <span className="absolute w-36 h-36 md:w-44 md:h-44 rounded-full border-2 border-blue-200" />
-              {/* Inner circle */}
-              <span className="absolute w-34 h-34 md:w-42 md:h-42 rounded-full border-2 border-blue-100" />
-              <img src={profileImg} alt="Mathan headshot" className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gray-200 shadow object-cover relative z-10" />
-            </motion.div>
-            <motion.h1
-              className="text-4xl md:text-5xl font-extrabold mb-2"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
-            >
-              Hey, I'm Mathan!
-            </motion.h1>
-            <motion.p
-              className="text-lg md:text-xl mb-6 text-gray-700"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.8, ease: 'easeOut' }}
-            >
-              Welcome to my corner of the internet!
-            </motion.p>
-            <motion.p
-              className="max-w-xl text-base md:text-lg text-gray-600 mb-8 text-center"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1.0, ease: 'easeOut' }}
-            >
-              I'm a fullstack developer with a love for design and a knack for tinkering. This site is my playground for experimenting with new ideas and sharing what I learn!
-            </motion.p>
+        <header id="home" className="relative flex flex-col md:flex-row items-center justify-center text-center py-10 px-4 gap-8 overflow-hidden">
+          {/* Dotted grid background */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none select-none"
+            aria-hidden="true"
+            style={{
+              backgroundImage: 'radial-gradient(circle, #e5e7eb 1px, transparent 1.5px)',
+              backgroundSize: '18px 18px',
+              opacity: 0.5
+            }}
+          />
+          <div className="relative z-10 w-full">
+            {/* Decorative computer-related emojis (near border) */}
+            <span className="hidden md:block absolute left-2 top-2 text-4xl opacity-30 select-none pointer-events-none">💻</span>
+            <span className="hidden md:block absolute right-2 top-4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🖥️</span>
+            <span className="hidden md:block absolute left-12 bottom-4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🖱️</span>
+            <span className="hidden md:block absolute right-12 bottom-2 text-4xl opacity-30 select-none pointer-events-none">⌨️</span>
+            <span className="hidden md:block absolute left-[60%] top-1/4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🧑‍💻</span>
+            {/* Hero content (image + text) */}
+            <div className="flex flex-col items-center justify-center text-center md:text-left">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+                className="relative flex items-center justify-center mb-6"
+              >
+                {/* Outer circle */}
+                <span className="absolute w-36 h-36 md:w-44 md:h-44 rounded-full border-2 border-blue-200" />
+                {/* Inner circle */}
+                <span className="absolute w-34 h-34 md:w-42 md:h-42 rounded-full border-2 border-blue-100" />
+                <img src={profileImg} alt="Mathan headshot" className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gray-200 shadow object-cover relative z-10" />
+              </motion.div>
+              <motion.h1
+                className="text-4xl md:text-5xl font-extrabold mb-2"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
+              >
+                Hey, I'm Mathan!
+              </motion.h1>
+              <motion.p
+                className="text-lg md:text-xl mb-6 text-gray-700"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.8, ease: 'easeOut' }}
+              >
+                Welcome to my corner of the internet!
+              </motion.p>
+              <motion.p
+                className="max-w-xl text-base md:text-lg text-gray-600 mb-8 text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1.0, ease: 'easeOut' }}
+              >
+                I'm a fullstack developer with a love for design and a knack for tinkering. This site is my playground for experimenting with new ideas and sharing what I learn!
+              </motion.p>
+            </div>
           </div>
-      </header>
+        </header>
         {/* 2-COLUMN GRID CARDS */}
         <section className="relative max-w-6xl mx-auto px-2 md:px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left column: Profile + Toolbox */}
@@ -351,23 +568,6 @@ function Home() {
           </form>
           <div className="text-xs text-gray-400 mt-2 text-gray-300">NO SPAM. You can unsubscribe at any time!</div>
         </section>
-        {/* FOOTER */}
-        <footer className="py-8 mt-8 border-t text-center text-sm text-gray-500">
-          <div className="flex flex-col items-center gap-2">
-            <div>I'm Mathan - a fullstack developer and lifelong learner. Thanks for visiting!</div>
-            <div className="flex gap-4 justify-center mt-2">
-              {socialLinks.map(link => (
-                <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700" aria-label={link.name}>{link.icon}</a>
-              ))}
-            </div>
-            <div className="flex gap-4 justify-center mt-2">
-              {navItems.map(item => (
-                <a key={item.name} href={item.href} className="hover:underline">{item.name}</a>
-              ))}
-            </div>
-            <div className="mt-2">&copy; 2025 Mathan Kumar</div>
-          </div>
-        </footer>
       </div>
     </>
   );
@@ -520,7 +720,8 @@ function About() {
 
       {/* Experience Timeline */}
       <Timeline />
-
+      {/* About Panels Section */}
+      <AboutPanels />
       {/* Newsletter */}
       <motion.section
         ref={newsletterRef}
