@@ -171,7 +171,7 @@ function AllTimeFavsCard() {
     { src: 'https://placehold.co/80x80', label: 'Book', tooltip: 'Sample book description\nSecond line of text\nThird line here' },
     { src: 'https://placehold.co/80x80', label: 'Game', tooltip: 'Sample game description\nSecond line of text\nThird line here' },
     { src: 'https://placehold.co/80x80', label: 'Album', tooltip: 'Sample album description\nSecond line of text\nThird line here' },
-    { src: modern, label: 'Series', tooltip: 'Sample series description\nSecond line of text\nThird line here' },
+    { src: modern, label: 'Series', tooltip: 'Modern Family, epic Sitcom that I love watched N number of times and counting...' },
   ];
 
   return (
