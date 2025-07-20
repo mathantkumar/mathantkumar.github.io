@@ -5,11 +5,12 @@ import profileImg from './imgs/profile.jpg';
 import ScrollToTop from './ScrollToTop';
 import HardwareSection from './HardwareSection';
 import AboutPanels from './AboutPanels';
+import Blog from './components/Blog';
 
 const navItems = [
   { name: 'Home', to: '/' },
   { name: 'About', to: '/about' },
-  { name: 'Blog', href: '#blog' },
+  { name: 'Blog', to: '/blog' },
   { name: 'Projects', href: '#projects' },
   { name: 'Toolbox', to: '/toolbox' },
   { name: 'Contact', href: '#contact' },
@@ -283,6 +284,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/toolbox" element={<ToolboxPage />} />
+          <Route path="/blog" element={<Blog />} />
         </Routes>
       </div>
       <Footer />
