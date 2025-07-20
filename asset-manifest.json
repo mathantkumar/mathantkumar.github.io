@@ -1,11 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.e02cc8e3.css",
-    "main.js": "/static/js/main.07a4a6f6.js",
+    "main.css": "/static/css/main.3899d12a.css",
+    "main.js": "/static/js/main.bc4bd93c.js",
     "static/js/453.078f297d.chunk.js": "/static/js/453.078f297d.chunk.js",
+    "static/media/g2.png": "/static/media/g2.68c9883cddd44856445f.png",
     "static/media/modern.png": "/static/media/modern.f6e3efd2c7708d395d66.png",
     "static/media/profile.jpg": "/static/media/profile.79ca1cc520195537c850.jpg",
     "static/media/f1.jpeg": "/static/media/f1.5e5acc605a9d32da8872.jpeg",
+    "static/media/a1.jpeg": "/static/media/a1.6ff61c3911266f6a793c.jpeg",
+    "static/media/a2.jpeg": "/static/media/a2.b15fc264ffd3c2270b23.jpeg",
+    "static/media/a3.jpeg": "/static/media/a3.8e0f357f2aed73d8892b.jpeg",
     "static/media/unbounded-latin-ext-700-normal.woff": "/static/media/unbounded-latin-ext-700-normal.0f359c8a5fcc90dd1325.woff",
     "static/media/song.jpg": "/static/media/song.fefaa52df4e347a46792.jpg",
     "static/media/bookcover.jpeg": "/static/media/bookcover.428d2b153970134b0c54.jpeg",
@@ -26,12 +30,12 @@
     "static/media/unbounded-cyrillic-ext-700-normal.woff": "/static/media/unbounded-cyrillic-ext-700-normal.e875a45367a901b969f4.woff",
     "static/media/unbounded-cyrillic-ext-700-normal.woff2": "/static/media/unbounded-cyrillic-ext-700-normal.e749e7f0b884091520ad.woff2",
     "index.html": "/index.html",
-    "main.e02cc8e3.css.map": "/static/css/main.e02cc8e3.css.map",
-    "main.07a4a6f6.js.map": "/static/js/main.07a4a6f6.js.map",
+    "main.3899d12a.css.map": "/static/css/main.3899d12a.css.map",
+    "main.bc4bd93c.js.map": "/static/js/main.bc4bd93c.js.map",
     "453.078f297d.chunk.js.map": "/static/js/453.078f297d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e02cc8e3.css",
-    "static/js/main.07a4a6f6.js"
+    "static/css/main.3899d12a.css",
+    "static/js/main.bc4bd93c.js"
   ]
 }
