@@ -4,6 +4,8 @@ import modern from './imgs/modern.png';
 import song from './imgs/song.jpg';
 import book from './imgs/bookcover.jpeg';
 import f1 from './imgs/f1.jpeg';
+import g2 from './imgs/g2.png';
+
 // --- Recent Favorite Card ---
 function RecentFavoriteCard() {
   return (
@@ -167,7 +169,7 @@ function ScrapbookCard() {
 // --- My All Time Favs Card ---
 function AllTimeFavsCard() {
   const favorites = [
-    { src: 'https://placehold.co/80x80', label: 'Movie', tooltip: 'Sample movie description\nSecond line of text\nThird line here' },
+    { src: g2, label: 'Movie', tooltip: 'GOT is the GOAT of all time!!' },
     { src: 'https://placehold.co/80x80', label: 'Book', tooltip: 'Sample book description\nSecond line of text\nThird line here' },
     { src: 'https://placehold.co/80x80', label: 'Game', tooltip: 'Sample game description\nSecond line of text\nThird line here' },
     { src: 'https://placehold.co/80x80', label: 'Album', tooltip: 'Sample album description\nSecond line of text\nThird line here' },
@@ -183,8 +185,8 @@ function AllTimeFavsCard() {
       className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all"
       style={{
         backgroundImage: `
-          linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
+          linear-gradient(rgba(0,0,0,0.05) 1px, transparent 2px),
+          linear-gradient(90deg, rgba(0,0,0,0.035) 1px, transparent 1px)
         `,
         backgroundSize: '20px 20px'
       }}
@@ -196,10 +198,8 @@ function AllTimeFavsCard() {
             <motion.img
               src={favorite.src}
               alt={favorite.label}
-              className={`rounded-lg object-cover shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 hover:scale-105 ${
-                index === 4 ? 'w-24 h-24' : 'w-16 h-16'
-              }`}
-              style={index === 4 ? { transform: 'rotate(40deg)' } : {}}
+              className={`transition-all transform hover:-translate-y-1 hover:scale-105 ${index === 4 ? 'w-24 h-24' : 'w-16 h-16'}`}
+              style={index === 4 ? { transform: 'rotate(30deg)' } : {}}
               whileHover={{ 
                 scale: 1.05,
                 rotate: index === 4 ? 70 : 0,
@@ -241,7 +241,7 @@ function CurrentlyReadingCard() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all"
     >
-      <h3 className="font-bold text-m text-gray-900 mb-4">Currently Reading/Watched</h3>
+      <h3 className="font-bold text-xl text-gray-900 mb-4">Currently Reading/Watched</h3>
       <div className="flex items-center justify-center gap-0">
         {/* First image with floating words */}
         <div className="relative group"
@@ -390,10 +390,8 @@ function CurrentlyReadingCard() {
   );
 }
 
-// --- Stats Card ---
-function StatsCard() {
-  const statsData = Array.from({ length: 30 }, () => Math.floor(Math.random() * 100) + 20);
-
+// --- My Fav Quote Card ---
+function FavQuoteCard() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -402,33 +400,33 @@ function StatsCard() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all"
     >
-      <h3 className="font-bold text-xl text-gray-900 mb-2">Stats</h3>
-      <p className="text-sm text-gray-400 mb-4">Coming Soon</p>
-      <div className="flex items-end gap-1 h-32">
-        {statsData.map((value, index) => (
-          <div key={index} className="flex-1 flex flex-col items-center">
-            <div 
-              className="w-2 rounded-t bg-purple-500 hover:bg-purple-600 transition-colors"
-              style={{ height: `${value}%`, minHeight: '8px' }}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="text-xs text-gray-400 mt-2 text-center">Last 30 days</div>
+      <h3 className="font-bold text-xl text-gray-900 mb-4">My Fav Quote of All Time</h3>
+      <blockquote className="text-lg italic text-gray-700 text-center">
+        "Making yourself happy again and creating the life you really want is the biggest comeback."
+      </blockquote>
     </motion.div>
   );
 }
 
-// --- Connections Card ---
-function ConnectionsCard() {
-  const avatars = [
-    'https://randomuser.me/api/portraits/men/32.jpg',
-    'https://randomuser.me/api/portraits/women/44.jpg',
-    'https://randomuser.me/api/portraits/men/45.jpg',
-    'https://randomuser.me/api/portraits/women/46.jpg',
-    'https://randomuser.me/api/portraits/men/47.jpg',
+// --- Currently Learning Card ---
+function CurrentlyLearningCard() {
+  const learnings = [
+    {
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
+      label: 'Next.js',
+      desc: 'Building fast, modern web apps with server-side magic! ✨'
+    },
+    {
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+      label: 'Docker',
+      desc: 'Containerizing everything for smooth sailing deployments! 🐳'
+    },
+    {
+      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/leaf/leaf-green.svg', // fallback to emoji if not found
+      label: 'Gardening',
+      desc: 'Growing little green friends and learning patience. 🌱'
+    }
   ];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -437,29 +435,21 @@ function ConnectionsCard() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all"
     >
-      <h3 className="font-bold text-xl text-gray-900 mb-4">Connections</h3>
-      <div className="flex justify-center items-center gap-3 mb-4">
-        {avatars.map((avatar, index) => (
-          <motion.div
-            key={index}
-            className={`relative ${index === 2 ? 'z-10' : 'z-0'}`}
-            whileHover={{ scale: index === 2 ? 1.1 : 1.05 }}
-          >
-            <img
-              src={avatar}
-              alt="Connection"
-              className={`rounded-full border-2 border-white shadow-md transition-all ${
-                index === 2 ? 'w-16 h-16' : 'w-12 h-12 opacity-70'
-              }`}
-            />
-            {index === 2 && (
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
+      <h3 className="font-bold text-xl text-gray-900 mb-4">Currently Learning</h3>
+      <div className="flex flex-col gap-4">
+        {learnings.map((item, idx) => (
+          <div key={idx} className="flex items-start gap-4">
+            {item.icon.startsWith('http') ? (
+              <img src={item.icon} alt={item.label} className="w-10 h-10 object-contain rounded-lg bg-gray-50 border" />
+            ) : (
+              <span className="text-3xl">{item.icon}</span>
             )}
-          </motion.div>
+            <div>
+              <div className="font-semibold text-gray-800">{item.label}</div>
+              <div className="text-sm text-gray-600">{item.desc}</div>
+            </div>
+          </div>
         ))}
-      </div>
-      <div className="text-center">
-        <p className="text-sm text-gray-600">An evolving list of people I've met and those I wish to meet.</p>
       </div>
     </motion.div>
   );
@@ -485,8 +475,8 @@ export default function AboutPanels() {
           <CurrentlyReadingCard />
           <div className="lg:col-span-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <StatsCard />
-              <ConnectionsCard />
+              <FavQuoteCard />
+              <CurrentlyLearningCard />
             </div>
           </div>
         </div>

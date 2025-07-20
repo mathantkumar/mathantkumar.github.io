@@ -6,6 +6,9 @@ import ScrollToTop from './ScrollToTop';
 import HardwareSection from './HardwareSection';
 import AboutPanels from './AboutPanels';
 import Blog from './components/Blog';
+import a1 from './imgs/a1.jpeg';
+import a2 from './imgs/a2.jpeg';
+import a3 from './imgs/a3.jpeg';
 
 const navItems = [
   { name: 'Home', to: '/' },
@@ -631,17 +634,17 @@ function About() {
                   <div className="relative grid grid-cols-3 gap-8">
                     <div className="relative z-20 -translate-y-4">
                       <div className="relative mx-auto shrink-0 rounded-2xl overflow-hidden border shadow bg-white cursor-grab active:cursor-grabbing" style={{ width: 200, height: 200, perspective: 400 }}>
-                        <img src="https://placehold.co/200x200" alt="Sample 1" className="w-full h-full object-cover" />
+                        <img src={a1} alt="Sample 1" className="w-full h-full object-cover" />
                       </div>
                     </div>
                     <div className="relative z-30">
                       <div className="relative mx-auto shrink-0 rounded-2xl overflow-hidden border shadow bg-white cursor-grab active:cursor-grabbing" style={{ width: 200, height: 200, perspective: 400 }}>
-                        <img src="https://placehold.co/200x200" alt="Sample 2" className="w-full h-full object-cover" />
+                        <img src={a2} alt="Sample 2" className="w-full h-full object-cover" />
                       </div>
                     </div>
                     <div className="relative z-20 translate-y-6">
                       <div className="relative mx-auto shrink-0 rounded-2xl overflow-hidden border shadow bg-white cursor-grab active:cursor-grabbing" style={{ width: 200, height: 200, perspective: 400 }}>
-                        <img src="https://placehold.co/200x200" alt="Sample 3" className="w-full h-full object-cover" />
+                        <img src={a3} alt="Sample 3" className="w-full h-full object-cover" />
                       </div>
                     </div>
                   </div>
