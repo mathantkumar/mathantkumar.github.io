@@ -1,22 +1,22 @@
 import React, { useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import profileImg from './imgs/profile.jpg';
+import profileImg from './imgs/prof.jpg';
 import ScrollToTop from './ScrollToTop';
-import HardwareSection from './HardwareSection';
 import AboutPanels from './AboutPanels';
 import Blog from './components/Blog';
 import a1 from './imgs/a1.jpeg';
 import a2 from './imgs/a2.jpeg';
 import a3 from './imgs/a3.jpeg';
+import p1 from './imgs/p1.png';
+import p2 from './imgs/p2.png';
 
 const navItems = [
   { name: 'Home', to: '/' },
   { name: 'About', to: '/about' },
-  { name: 'Blog', to: '/blog' },
-  { name: 'Projects', href: '#projects' },
+  { name: 'Devlogs', to: '/blog' },
   { name: 'Toolbox', to: '/toolbox' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Resume', href: 'https://drive.google.com/file/d/18cvig6hT-prpkLy91tjoosOoY29o_h3G/view?usp=drive_link' },
 ];
 
 const socialLinks = [
@@ -138,18 +138,7 @@ function ToolboxPage() {
     hidden: { opacity: 0, y: 24 },
     show: { opacity: 1, y: 0, transition: { stiffness: 400, damping: 28, duration: 0.22 } }
   };
-  // Replace NewsletterCard with new dark-themed newsletter section
-  const NewsletterCard = () => (
-    <section className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">Subscribe to my newsletter</h2>
-      <p className="text-gray-600 mb-6 text-gray-300">A periodic update about my life, recent blog posts, how-tos, and discoveries.</p>
-      <form className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto">
-        <input type="email" placeholder="Email" className="border px-4 py-2 rounded w-full sm:w-auto text-gray-900 bg-gray-200" />
-        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">Subscribe</button>
-      </form>
-      <div className="text-xs text-gray-400 mt-2 text-gray-300">NO SPAM. You can unsubscribe at any time!</div>
-    </section>
-  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -228,9 +217,7 @@ function ToolboxPage() {
          </motion.div>
        </motion.div>
       {/* HardwareSection above the newsletter card */}
-      <HardwareSection />
-      {/* Newsletter card below the HardwareSection */}
-      <NewsletterCard />
+    
     </motion.div>
   );
 }
@@ -246,17 +233,54 @@ function Footer() {
             <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700" aria-label={link.name}>{link.icon}</a>
           ))}
         </div>
-        <div className="flex gap-4 justify-center mt-2">
+        {/* <div className="flex gap-4 justify-center mt-2">
           {navItems.map(item => (
             <a key={item.name} href={item.href} className="hover:underline">{item.name}</a>
           ))}
-        </div>
+        </div> */}
         <div className="mt-2">&copy; {new Date().getFullYear()} Mathan Kumar</div>
       </div>
     </footer>
   );
 }
+type Project = {
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+  tech: string[];
+};
 
+const projects: Project[] = [
+  {
+    title: "Dependency Updater",
+    description: "Designed to help an organization manage software libraries across many repositories by scanning for dependencies and automating version updates",
+    image: p1,
+    link: "#",
+    tech: ["FastAPI", "Python3", "PyGithub", "Manifest Parsing", "Pydantic"],
+  },
+  {
+    title: "SMS Rate Limiter",
+    description: "The Messaging Insights Dashboard is a web app for visualizing and analyzing all SMS activities, enabling users to send messages, track usage, and monitor for critical rate limit violations",
+    image: p2,
+    link: "#",
+    tech: ["Next.js", "Node.js", "Express.js","Tailwind CSS", "SQLite", "Chart.js"],
+  },
+  {
+    title: "Project Three",
+    description: "A mobile-first e-commerce platform with seamless checkout experience. Optimized for performance and user experience.",
+    image: "https://placehold.co/600x400?text=Project+3",
+    link: "#",
+    tech: ["React Native", "Express.js", "Stripe", "Redis"],
+  },
+  {
+    title: "Project Four",
+    description: "A collaborative project management tool with real-time collaboration features. Includes task tracking, team chat, and analytics.",
+    image: "https://placehold.co/600x400?text=Project+4",
+    link: "#",
+    tech: ["Vue.js", "Socket.io", "GraphQL", "AWS"],
+  },
+];
 function App() {
   return (
     <Router>
@@ -375,117 +399,6 @@ function ToolboxCard() {
   );
 }
 
-function ProjectsCard() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-      whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
-      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-4 flex flex-col text-left h-full gap-2 border border-white/30"
-    >
-      <div className="font-bold text-lg mb-1 text-gray-800">Projects</div>
-      <div className="flex flex-row items-start gap-2">
-        {/* Description */}
-        <div className="flex-1">
-          <div className="text-sm mb-1 text-gray-600">
-            <div>A selection of my favorite web projects</div>
-            <div>and experiments. I love building things</div>
-            <div>that are useful, beautiful, and fun.</div>
-            <div>From interactive dashboards to creative UI concepts,</div>
-            <div>I focus on clean code, performance, and delightful user experiences.</div>
-          </div>
-        </div>
-        {/* Mini project card with image */}
-        <div className="bg-blue-50 rounded-xl p-2 shadow flex flex-col items-center min-w-[110px] max-w-[130px]">
-          <img src="https://placehold.co/100x60" alt="Project" className="rounded w-full h-[60px] object-cover" />
-        </div>
-      </div>
-      <a href="#projects" className="flex items-center gap-1 text-blue-600 font-semibold hover:underline mt-0 group text-sm">
-        Learn more
-        <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-      </a>
-    </motion.div>
-  );
-}
-
-function BookingCard() {
-  // Calendar logic
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth();
-  const monthName = today.toLocaleString('default', { month: 'long' });
-  const firstDay = new Date(year, month, 1).getDay();
-  const days = Array.from({ length: 21 }, (_, i) => i + 1);
-  const grid = [
-    ...Array(firstDay).fill(null),
-    ...days
-  ];
-  while (grid.length % 7 !== 0) grid.push(null);
-  // Animation: match ProjectsCard
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-      whileHover={{ scale: 1.04, boxShadow: '0 4px 16px 0 rgba(80, 120, 255, 0.10)', transition: { duration: 0.22, ease: 'easeOut' } }}
-      className="bg-white/60 rounded-2xl shadow-lg backdrop-blur-lg p-6 flex flex-col items-center text-left h-full gap-4 border border-white/30 w-full relative overflow-hidden"
-      style={{ boxShadow: '0 8px 32px 0 rgba(80,120,255,0.15)' }}
-    >
-      <div className="relative w-full flex items-center justify-between mb-1">
-        <span className="font-bold text-lg text-gray-800">Book a call with me</span>
-        <span className="text-sm text-gray-500 ml-2 bg-white border border-gray-200 rounded-lg px-3 py-1 shadow-sm">30 min call</span>
-      </div>
-      <div className="text-base mb-2 text-gray-600 w-full">I’d love to chat even if there’s no agenda!</div>
-      {/* Calendar inside card (fuller, with border and bg) */}
-      <div className="flex items-center justify-center w-full flex-1">
-        <div className="bg-white rounded-xl border border-gray-200 shadow w-full max-w-[380px] flex flex-col items-center p-2">
-          <div className="grid grid-cols-7 gap-1 w-full mb-2 mt-2">
-            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(d => (
-              <div key={d} className="text-xs font-semibold text-gray-500 text-center py-1">{d}</div>
-            ))}
-          </div>
-          <div className="grid grid-cols-7 gap-1 w-full">
-            {grid.map((day, i) => (
-              day ? (
-                <div
-                  key={i}
-                  className="w-10 h-10 flex items-center justify-center rounded cursor-pointer hover:bg-blue-100 text-gray-800 text-base font-medium transition"
-                  tabIndex={0}
-                  aria-label={`Book for ${monthName} ${day}`}
-                >
-                  {day}
-                </div>
-              ) : (
-                <div key={i} className="w-10 h-10" />
-              )
-            ))}
-          </div>
-        </div>
-      </div>
-      {/* Arrow link at bottom right, facing up (45deg) */}
-      <a
-        href="https://cal.com/mathankumar/30min"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition transform -rotate-45"
-        style={{ boxShadow: '0 2px 8px 0 rgba(80,120,255,0.15)' }}
-        aria-label="Book now"
-      >
-        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-    </motion.div>
-  );
-}
-
 function Home() {
   return (
     <>
@@ -524,7 +437,8 @@ function Home() {
                 <img src={profileImg} alt="Mathan headshot" className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gray-200 shadow object-cover relative z-10" />
               </motion.div>
               <motion.h1
-                className="text-4xl md:text-5xl font-extrabold mb-2"
+                className="text-4xl md:text-5xl font-extrabold mb-2 text-blue-800"
+                style={{ fontFamily: "'Fraunces', serif" }}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
@@ -552,19 +466,21 @@ function Home() {
         </header>
         {/* 2-COLUMN GRID CARDS */}
         <section className="relative max-w-6xl mx-auto px-2 md:px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left column: Profile + Toolbox */}
+          {/* Left column: Profile */}
           <div className="flex flex-col gap-8 h-full z-10">
             <ProfileCard />
+          </div>
+          {/* Right column: Toolbox */}
+          <div className="flex flex-col gap-8 h-full z-10">
             <ToolboxCard />
           </div>
-          {/* Right column: Projects + Booking */}
-          <div className="flex flex-col gap-8 h-full z-10">
-            <ProjectsCard />
-            <BookingCard />
+          {/* Timeline centered between columns */}
+          <div className="col-span-1 md:col-span-2 flex justify-center items-center z-10 mt-8">
+            <Timeline />
           </div>
         </section>
         {/* NEWSLETTER/CONTACT */}
-        <section id="contact" className="max-w-3xl mx-auto px-4 py-16 text-center">
+        {/* <section id="contact" className="max-w-3xl mx-auto px-4 py-16 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">Subscribe to my newsletter</h2>
           <p className="text-gray-600 mb-6 text-gray-300">A periodic update about my life, recent blog posts, how-tos, and discoveries.</p>
           <form className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto">
@@ -572,7 +488,63 @@ function Home() {
             <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">Subscribe</button>
           </form>
           <div className="text-xs text-gray-400 mt-2 text-gray-300">NO SPAM. You can unsubscribe at any time!</div>
-        </section>
+        </section> */}
+      <div
+          className="relative pb-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, #e5e7eb 0.6px, transparent 0.6px),
+              linear-gradient(to bottom, #e5e7eb 0.6px, transparent 0.6px)
+            `,
+            backgroundSize: '30px 30px',
+            backgroundPosition: '0 0',
+          }}
+        >
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 relative z-20 px-4 sm:px-6 lg:px-8 py-6">
+            {projects.map((project: any, idx: number) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 40, x: 20, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+                transition={{ duration: 0.9, delay: idx * 0.13, type: "spring", bounce: 0.18 }}
+                className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300 max-w-md mx-auto"
+              >
+              <div className="bg-white rounded-xl shadow border border-gray-200 p-2 m-4 mb-3">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-44 sm:h-48 md:h-52 object-cover rounded-lg"
+                />
+              </div>
+              <div className="px-5 pb-5">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+                <p className="text-gray-600 text-sm mb-3 leading-relaxed">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {project.tech.map((tech: string, techIdx: number) => (
+                    <span
+                      key={techIdx}
+                      className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full border border-blue-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={project.link}
+                  className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 hover:underline text-sm"
+                >
+                  View Project
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+              </motion.div>
+            ))}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
@@ -587,8 +559,8 @@ function About() {
   const webInView = useInView(webRef, { once: true, margin: '-80px' });
   const lifeRef = useRef(null);
   const lifeInView = useInView(lifeRef, { once: true, margin: '-80px' });
-  const newsletterRef = useRef(null);
-  const newsletterInView = useInView(newsletterRef, { once: true, margin: '-80px' });
+ // const newsletterRef = useRef(null);
+ // const newsletterInView = useInView(newsletterRef, { once: true, margin: '-80px' });
   return (
     <div className="max-w-7xl mx-auto px-8 md:px-24 py-12">
       {/* Hero Section: Greeting, Heading, and Overlapping Images */}
@@ -724,11 +696,11 @@ function About() {
       </motion.section>
 
       {/* Experience Timeline */}
-      <Timeline />
+     
       {/* About Panels Section */}
       <AboutPanels />
       {/* Newsletter */}
-      <motion.section
+      {/* <motion.section
         ref={newsletterRef}
         className="mt-16 text-center"
         initial={{ opacity: 0, y: 40 }}
@@ -742,7 +714,7 @@ function About() {
           <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">Subscribe</button>
         </form>
         <div className="text-xs text-gray-400 mt-2">NO SPAM. You can unsubscribe at any time!</div>
-      </motion.section>
+      </motion.section> */}
     </div>
   );
 }
