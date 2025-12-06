@@ -14,15 +14,16 @@ import p2 from './imgs/p2.png';
 const navItems = [
   { name: 'Home', to: '/' },
   { name: 'About', to: '/about' },
-  { name: 'Devlogs', to: '/blog' },
   { name: 'Toolbox', to: '/toolbox' },
   { name: 'Resume', href: 'https://drive.google.com/file/d/18cvig6hT-prpkLy91tjoosOoY29o_h3G/view?usp=drive_link' },
 ];
 
 const socialLinks = [
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mathan-kumar-mk/', icon: (
-    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
-  )},
+  {
+    name: 'LinkedIn', href: 'https://www.linkedin.com/in/mathan-kumar-mk/', icon: (
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z" /></svg>
+    )
+  },
 ];
 
 const timeline = [
@@ -175,49 +176,49 @@ function ToolboxPage() {
         transition={{ duration: 0.6, delay: 0.28, ease: 'easeOut' }}
         className="bg-white rounded-xl shadow max-w-screen-lg w-full mx-auto p-6 relative overflow-hidden"
       >
-         {/* Dotted grid background for the big card */}
-         <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true"
-           style={{
-             backgroundImage: 'radial-gradient(circle, #e5e7eb 1px, transparent 1.5px)',
-             backgroundSize: '12px 12px',
-             opacity: 0.5
-           }}
-         />
-         <motion.h2
-           className="text-xl font-bold text-center mb-6 text-blue-700 z-10"
-           initial={{ opacity: 0, y: 16 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.5, delay: 0.38, ease: 'easeOut' }}
-         >Applications</motion.h2>
-         <motion.div
-           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4 py-6 z-10"
-           variants={containerVariants}
-           initial="hidden"
-           animate="show"
-         >
-           {apps.map(app => (
-             <motion.div
-               key={app.name}
-               variants={cardVariants}
-               whileHover={{ scale: 1.10, boxShadow: '2px 4px 16px 2px rgba(80,120,255,0.10)' }}
-               transition={{ type: 'spring', stiffness: 500, damping: 18, duration: 0.15 }}
-               className="flex flex-col items-center justify-center bg-white rounded-xl border border-gray-200 ring-1 ring-gray-200 shadow-sm hover:shadow-md p-2 transition-all duration-250 cursor-pointer relative overflow-hidden"
-               style={{ minHeight: 100 }}
-             >
-               <div className="flex items-center justify-center w-10 h-10 mb-1 text-2xl">
-                 {app.icon.startsWith('http') ? (
-                   <img src={app.icon} alt={app.name} className="w-8 h-8 object-contain" />
-                 ) : (
-                   <span>{app.icon}</span>
-                 )}
-               </div>
-               <div className="text-xs font-medium text-gray-600 text-center mt-1 z-10">{app.name}</div>
-             </motion.div>
-           ))}
-         </motion.div>
-       </motion.div>
+        {/* Dotted grid background for the big card */}
+        <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #e5e7eb 1px, transparent 1.5px)',
+            backgroundSize: '12px 12px',
+            opacity: 0.5
+          }}
+        />
+        <motion.h2
+          className="text-xl font-bold text-center mb-6 text-blue-700 z-10"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.38, ease: 'easeOut' }}
+        >Applications</motion.h2>
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4 py-6 z-10"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+        >
+          {apps.map(app => (
+            <motion.div
+              key={app.name}
+              variants={cardVariants}
+              whileHover={{ scale: 1.10, boxShadow: '2px 4px 16px 2px rgba(80,120,255,0.10)' }}
+              transition={{ type: 'spring', stiffness: 500, damping: 18, duration: 0.15 }}
+              className="flex flex-col items-center justify-center bg-white rounded-xl border border-gray-200 ring-1 ring-gray-200 shadow-sm hover:shadow-md p-2 transition-all duration-250 cursor-pointer relative overflow-hidden"
+              style={{ minHeight: 100 }}
+            >
+              <div className="flex items-center justify-center w-10 h-10 mb-1 text-2xl">
+                {app.icon.startsWith('http') ? (
+                  <img src={app.icon} alt={app.name} className="w-8 h-8 object-contain" />
+                ) : (
+                  <span>{app.icon}</span>
+                )}
+              </div>
+              <div className="text-xs font-medium text-gray-600 text-center mt-1 z-10">{app.name}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
       {/* HardwareSection above the newsletter card */}
-    
+
     </motion.div>
   );
 }
@@ -264,7 +265,7 @@ const projects: Project[] = [
     description: "The Messaging Insights Dashboard is a web app for visualizing and analyzing all SMS activities, enabling users to send messages, track usage, and monitor for critical rate limit violations",
     image: p2,
     link: "#",
-    tech: ["Next.js", "Node.js", "Express.js","Tailwind CSS", "SQLite", "Chart.js"],
+    tech: ["Next.js", "Node.js", "Express.js", "Tailwind CSS", "SQLite", "Chart.js"],
   },
   {
     title: "Project Three",
@@ -311,7 +312,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/toolbox" element={<ToolboxPage />} />
-          <Route path="/blog" element={<Blog />} />
+
         </Routes>
       </div>
       <Footer />
@@ -422,20 +423,8 @@ function Home() {
             <span className="hidden md:block absolute left-12 bottom-4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🖱️</span>
             <span className="hidden md:block absolute right-12 bottom-2 text-4xl opacity-30 select-none pointer-events-none">⌨️</span>
             <span className="hidden md:block absolute left-[60%] top-1/4 text-3xl opacity-20 blur-sm select-none pointer-events-none">🧑‍💻</span>
-            {/* Hero content (image + text) */}
+            {/* Hero content (text only) */}
             <div className="flex flex-col items-center justify-center text-center md:text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-                className="relative flex items-center justify-center mb-6"
-              >
-                {/* Outer circle */}
-                <span className="absolute w-36 h-36 md:w-44 md:h-44 rounded-full border-2 border-blue-200" />
-                {/* Inner circle */}
-                <span className="absolute w-34 h-34 md:w-42 md:h-42 rounded-full border-2 border-blue-100" />
-                <img src={profileImg} alt="Mathan headshot" className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gray-200 shadow object-cover relative z-10" />
-              </motion.div>
               <motion.h1
                 className="text-4xl md:text-5xl font-extrabold mb-2 text-blue-800"
                 style={{ fontFamily: "'Fraunces', serif" }}
@@ -489,7 +478,7 @@ function Home() {
           </form>
           <div className="text-xs text-gray-400 mt-2 text-gray-300">NO SPAM. You can unsubscribe at any time!</div>
         </section> */}
-      <div
+        <div
           className="relative pb-10"
           style={{
             backgroundImage: `
@@ -502,46 +491,46 @@ function Home() {
         >
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 relative z-20 px-4 sm:px-6 lg:px-8 py-6">
-            {projects.map((project: any, idx: number) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 40, x: 20, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-                transition={{ duration: 0.9, delay: idx * 0.13, type: "spring", bounce: 0.18 }}
-                className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300 max-w-md mx-auto"
-              >
-              <div className="bg-white rounded-xl shadow border border-gray-200 p-2 m-4 mb-3">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-44 sm:h-48 md:h-52 object-cover rounded-lg"
-                />
-              </div>
-              <div className="px-5 pb-5">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
-                <p className="text-gray-600 text-sm mb-3 leading-relaxed">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {project.tech.map((tech: string, techIdx: number) => (
-                    <span
-                      key={techIdx}
-                      className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full border border-blue-200"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <a
-                  href={project.link}
-                  className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 hover:underline text-sm"
+              {projects.map((project: any, idx: number) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 40, x: 20, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+                  transition={{ duration: 0.9, delay: idx * 0.13, type: "spring", bounce: 0.18 }}
+                  className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300 max-w-md mx-auto"
                 >
-                  View Project
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
-              </div>
-              </motion.div>
-            ))}
+                  <div className="bg-white rounded-xl shadow border border-gray-200 p-2 m-4 mb-3">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-44 sm:h-48 md:h-52 object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="px-5 pb-5">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+                    <p className="text-gray-600 text-sm mb-3 leading-relaxed">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.tech.map((tech: string, techIdx: number) => (
+                        <span
+                          key={techIdx}
+                          className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full border border-blue-200"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <a
+                      href={project.link}
+                      className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 hover:underline text-sm"
+                    >
+                      View Project
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -559,8 +548,8 @@ function About() {
   const webInView = useInView(webRef, { once: true, margin: '-80px' });
   const lifeRef = useRef(null);
   const lifeInView = useInView(lifeRef, { once: true, margin: '-80px' });
- // const newsletterRef = useRef(null);
- // const newsletterInView = useInView(newsletterRef, { once: true, margin: '-80px' });
+  // const newsletterRef = useRef(null);
+  // const newsletterInView = useInView(newsletterRef, { once: true, margin: '-80px' });
   return (
     <div className="max-w-7xl mx-auto px-8 md:px-24 py-12">
       {/* Hero Section: Greeting, Heading, and Overlapping Images */}
@@ -696,7 +685,7 @@ function About() {
       </motion.section>
 
       {/* Experience Timeline */}
-     
+
       {/* About Panels Section */}
       <AboutPanels />
       {/* Newsletter */}
